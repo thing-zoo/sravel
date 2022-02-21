@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sravel/utils/constants.dart';
-import 'package:sravel/screens/home_tab.dart';
+import 'package:sravel/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+            // primarySwatch: Colors.blue,
+            ),
         home: const MainPage(title: 'SRAVEL'),
       ),
     );
@@ -38,8 +38,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0; //맨 처음은 홈으로
   final List<Widget> _widgetOptions = [
-    const HomeTab(),
-    const Placeholder(),
+    const HomePage(),
     const Placeholder(),
     const Placeholder(),
     const Placeholder(),
@@ -98,8 +97,8 @@ class _MainPageState extends State<MainPage> {
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: '내 서재',
+            icon: Icon(Icons.local_fire_department),
+            label: 'HOT',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people_alt),
