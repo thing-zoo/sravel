@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sravel/utils/constants.dart';
 import 'package:sravel/widgets/box_slider.dart';
+import 'package:sravel/widgets/rounded_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -67,31 +67,23 @@ class HomePage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              /* 노트쓰기 페이지로 이동 */
-                            },
+                          RoundedButton(
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text('기록하기'),
+                                const Text('기록하기'),
                                 SizedBox(
                                   width: 10.w,
                                 ),
-                                Icon(Icons.create),
+                                const Icon(Icons.create),
                               ],
                             ),
-                            style: ElevatedButton.styleFrom(
-                              textStyle: TextStyle(
-                                  fontSize: 16.sp, fontWeight: FontWeight.w700),
-                              padding:
-                                  EdgeInsets.fromLTRB(30.w, 15.w, 30.w, 15.w),
-                              primary: kPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.r),
-                              ),
-                            ),
-                          ),
+                            paddging:
+                                EdgeInsets.fromLTRB(30.w, 15.w, 30.w, 15.w),
+                            onPressed: () {
+                              /* 노트페이지로 이동 */
+                            },
+                          )
                         ],
                       ),
                     ],
@@ -101,7 +93,7 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
-        BoxSlider(),
+        const BoxSlider(),
       ],
     );
   }
