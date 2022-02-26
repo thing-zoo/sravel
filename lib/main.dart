@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sravel/screens/signupin_screen.dart';
 import 'package:sravel/utils/constants.dart';
 import 'package:sravel/screens/home_screen.dart';
 
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             // primarySwatch: Colors.blue,
             ),
-        home: const MainPage(title: 'SRAVEL'),
+        home: const SignUpInPage(),
+        // home: const MainPage(title: 'SRAVEL'),
       ),
     );
   }
