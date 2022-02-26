@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sravel/models/mock_data.dart';
 
 class BoxSlider extends StatelessWidget {
+  const BoxSlider({Key? key}) : super(key: key);
+
   // final List<Post> posts;
   // BoxSlider({required this.posts});
 
