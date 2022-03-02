@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sravel/screens/signin_screen.dart';
 import 'package:sravel/screens/signup_screen.dart';
 import 'package:sravel/utils/constants.dart';
 
@@ -17,6 +18,7 @@ class _SignUpInPageState extends State<SignUpInPage>
   @override
   void initState() {
     _tabController = TabController(
+      initialIndex: 1,
       length: 2,
       vsync: this, //vsync에 this 형태로 전달해야 애니메이션이 정상 처리됨
     );
@@ -54,7 +56,7 @@ class _SignUpInPageState extends State<SignUpInPage>
         controller: _tabController,
         children: const [
           SignUpPage(),
-          Placeholder(),
+          SignInPage(),
         ],
       ),
     );

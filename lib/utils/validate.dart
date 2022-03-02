@@ -21,7 +21,7 @@ class CheckValidate {
     RegExp regExp = RegExp(pattern);
     if (value == null || value.isEmpty) {
       focusNode.requestFocus();
-      return '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.';
+      // return '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.';
     } else if (value.length < 8) {
       return '• 아직 8자 미만이에요.';
     } else if (value.length > 15) {

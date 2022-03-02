@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sravel/utils/constants.dart';
 import 'package:sravel/utils/validate.dart';
 import 'package:sravel/widgets/rounded_button.dart';
+import 'package:sravel/widgets/input_field.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -39,99 +40,100 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildInput(
-                '아이디(이메일)',
-                TextInputType.emailAddress,
-                '예) abc@sravel.com',
-                '• 비밀번호 찾기에서 활용되니, 꼭 정확하게 입력 해주세요!',
-                _emailFocus,
-                false,
-                (value) => CheckValidate().validateEmail(_emailFocus, value),
-                (text) => setState(() => _emailText = text),
-                RoundedButton(
-                  onPressed: _emailText.isNotEmpty
-                      ? () {
-                          //중복 확인
-                        }
-                      : null,
-                  child: Text(
-                    '중복 확인',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                ),
-              ),
-              _buildInput(
-                '비밀번호',
-                TextInputType.visiblePassword,
-                '비밀번호를 입력하세요.',
-                '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.',
-                _passwordFocus,
-                _passwordObscure,
-                (value) =>
-                    CheckValidate().validatePassword(_passwordFocus, value),
-                (text) => setState(() => _passwordText = text),
-                IconButton(
-                  icon: Icon(_passwordObscure
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: _passwordText.isNotEmpty
-                      ? () {
-                          setState(() {
-                            _passwordObscure = !_passwordObscure;
-                          });
-                        }
-                      : null,
-                ),
-              ),
-              _buildInput(
-                '비밀번호 확인',
-                TextInputType.visiblePassword,
-                '비밀번호를 한 번 더 입력해 주세요.',
-                null,
-                _passwordCheckFocus,
-                _passwordCheckObscure,
-                (value) => CheckValidate().validatePasswordCheck(
-                    _passwordCheckFocus, value, _passwordText),
-                (text) => setState(() => _passwordCheckText = text),
-                IconButton(
-                  icon: Icon(_passwordCheckObscure
-                      ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: _passwordCheckText.isNotEmpty
-                      ? () {
-                          setState(() {
-                            _passwordCheckObscure = !_passwordCheckObscure;
-                          });
-                        }
-                      : null,
-                ),
-              ),
-              _buildInput(
-                '닉네임',
-                TextInputType.text,
-                '닉네임을 입력해 주세요.',
-                '• 특수문자 제외 2~20자 이내로 입력해주세요.',
-                _nicknameFocus,
-                false,
-                (value) =>
-                    CheckValidate().validateNickname(_nicknameFocus, value),
-                (text) => setState(() => _nicknameText = text),
-                RoundedButton(
-                  onPressed: _nicknameText.isNotEmpty
-                      ? () {
-                          //중복 확인
-                        }
-                      : null,
-                  child: Text(
-                    '중복 확인',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                ),
-              ),
+              
+              // buildInput(
+              //   '아이디(이메일)',
+              //   TextInputType.emailAddress,
+              //   'abc@sravel.com',
+              //   '• 비밀번호 찾기에서 활용되니, 꼭 정확하게 입력 해주세요!',
+              //   _emailFocus,
+              //   false,
+              //   (value) => CheckValidate().validateEmail(_emailFocus, value),
+              //   (text) => setState(() => _emailText = text),
+              //   RoundedButton(
+              //     onPressed: _emailText.isNotEmpty
+              //         ? () {
+              //             //중복 확인
+              //           }
+              //         : null,
+              //     child: Text(
+              //       '중복 확인',
+              //       style: TextStyle(
+              //         fontSize: 12.sp,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // buildInput(
+              //   '비밀번호',
+              //   TextInputType.visiblePassword,
+              //   '비밀번호를 입력하세요.',
+              //   '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.',
+              //   _passwordFocus,
+              //   _passwordObscure,
+              //   (value) =>
+              //       CheckValidate().validatePassword(_passwordFocus, value),
+              //   (text) => setState(() => _passwordText = text),
+              //   IconButton(
+              //     icon: Icon(_passwordObscure
+              //         ? Icons.visibility_off
+              //         : Icons.visibility),
+              //     onPressed: _passwordText.isNotEmpty
+              //         ? () {
+              //             setState(() {
+              //               _passwordObscure = !_passwordObscure;
+              //             });
+              //           }
+              //         : null,
+              //   ),
+              // ),
+              // buildInput(
+              //   '비밀번호 확인',
+              //   TextInputType.visiblePassword,
+              //   '비밀번호를 한 번 더 입력해 주세요.',
+              //   null,
+              //   _passwordCheckFocus,
+              //   _passwordCheckObscure,
+              //   (value) => CheckValidate().validatePasswordCheck(
+              //       _passwordCheckFocus, value, _passwordText),
+              //   (text) => setState(() => _passwordCheckText = text),
+              //   IconButton(
+              //     icon: Icon(_passwordCheckObscure
+              //         ? Icons.visibility_off
+              //         : Icons.visibility),
+              //     onPressed: _passwordCheckText.isNotEmpty
+              //         ? () {
+              //             setState(() {
+              //               _passwordCheckObscure = !_passwordCheckObscure;
+              //             });
+              //           }
+              //         : null,
+              //   ),
+              // ),
+              // buildInput(
+              //   '닉네임',
+              //   TextInputType.text,
+              //   '닉네임을 입력해 주세요.',
+              //   '• 특수문자 제외 2~20자 이내로 입력해주세요.',
+              //   _nicknameFocus,
+              //   false,
+              //   (value) =>
+              //       CheckValidate().validateNickname(_nicknameFocus, value),
+              //   (text) => setState(() => _nicknameText = text),
+              //   RoundedButton(
+              //     onPressed: _nicknameText.isNotEmpty
+              //         ? () {
+              //             //중복 확인
+              //           }
+              //         : null,
+              //     child: Text(
+              //       '중복 확인',
+              //       style: TextStyle(
+              //         fontSize: 12.sp,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               _buildPrivateAgreement(),
               SizedBox(
                 width: double.infinity,
@@ -156,56 +158,6 @@ class _SignUpPageState extends State<SignUpPage> {
             ],
           ),
         ));
-  }
-
-  Widget _buildInput(
-    String label,
-    TextInputType keyboardType,
-    String? hint,
-    String? helper,
-    FocusNode focusNode,
-    bool obscureText,
-    String? Function(String?)? validator,
-    Function(String)? onChanged,
-    Widget? button,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        TextFormField(
-          obscureText: obscureText,
-          keyboardType: keyboardType,
-          decoration: _textFormDecoration(hint, helper, button),
-          focusNode: focusNode,
-          validator: validator,
-          onChanged: onChanged,
-          style: TextStyle(fontSize: 14.sp),
-        ),
-      ],
-    );
-  }
-
-  InputDecoration _textFormDecoration(hintText, helperText, suffix) {
-    return InputDecoration(
-      contentPadding: EdgeInsets.all(2.w),
-      focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: kPrimaryColor, width: 2.w)),
-      hintText: hintText,
-      helperText: helperText,
-      helperStyle: TextStyle(
-        color: kPrimaryColor,
-        fontSize: 11.sp,
-      ),
-      errorStyle: TextStyle(fontSize: 11.sp, color: Colors.red),
-      suffix: suffix,
-    );
   }
 
   Widget _buildPrivateAgreement() {
