@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Expanded(
                   child: Image.asset(
-                    'images/main_back.png',
+                    'assets/images/main_back.png',
                   ),
                 ),
               ],
