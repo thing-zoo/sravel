@@ -19,8 +19,55 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-            // primarySwatch: Colors.blue,
+          primaryColor: kPrimaryColor,
+          indicatorColor: kPrimaryColor,
+          focusColor: kPrimaryColor,
+          highlightColor: kPrimaryColor,
+          inputDecorationTheme: InputDecorationTheme(
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: kPrimaryColor, width: 2.w),
             ),
+            contentPadding: EdgeInsets.all(2.w),
+            helperStyle: TextStyle(
+              // color: kPrimaryColor,
+              fontSize: 11.sp,
+            ),
+            errorStyle: TextStyle(fontSize: 11.sp, color: Colors.red),
+          ),
+          fontFamily: 'Noto_Sans_KR',
+          textTheme: TextTheme(
+            titleLarge: TextStyle(
+              letterSpacing: -2.84,
+              fontWeight: FontWeight.w900,
+              fontSize: 50.sp,
+              color: Colors.black,
+            ),
+            titleSmall: TextStyle(
+              letterSpacing: -2.84,
+              fontWeight: FontWeight.w900,
+              fontSize: 25.sp,
+              color: Colors.black,
+            ),
+            headlineLarge: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 22.sp,
+              color: Colors.black,
+            ),
+            headlineMedium: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 18.sp,
+              color: Colors.black,
+            ),
+            headlineSmall: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+              color: Colors.black,
+            ),
+            bodyLarge: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
+            bodyMedium: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+            bodySmall: TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w500),
+          ),
+        ),
         home: const SignUpInPage(),
         // home: const MainPage(title: 'SRAVEL'),
       ),
@@ -63,12 +110,7 @@ class _MainPageState extends State<MainPage> {
         elevation: 0,
         title: Text(
           widget.title,
-          style: TextStyle(
-            letterSpacing: -2.84,
-            fontWeight: FontWeight.w900,
-            fontSize: 25.sp,
-            color: Colors.black,
-          ),
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         centerTitle: false,
         actions: [
@@ -82,7 +124,7 @@ class _MainPageState extends State<MainPage> {
                 padding: EdgeInsets.all(3.w),
                 child: CircleAvatar(
                   radius: 28.r,
-                  backgroundImage: const AssetImage('images/meme.jpeg'),
+                  backgroundImage: const AssetImage('assets/images/meme.jpeg'),
                 ),
               ),
             ),
