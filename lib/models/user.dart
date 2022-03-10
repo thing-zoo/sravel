@@ -8,6 +8,8 @@ User userFromJson(String str) => User.fromJson(json.decode(str));
 
 String userToJson(User data) => json.encode(data.toJson());
 
+enum Gender { male, female, none }
+
 class User {
   User({
     this.email,
@@ -17,10 +19,10 @@ class User {
     this.birthday,
   });
 
-  String?email;
+  String? email;
   String? password;
   String? nickname;
-  String? gender;
+  Gender? gender;
   DateTime? birthday;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -42,8 +44,10 @@ class User {
 
   // print properties for debug
   void printProperties() {
-    print("email: ${email}\n");
-    print("password: ${password}\n");
-    // print("nickname: ${ninkname}\n");
+    // print("email: $email\n");
+    // print("password: $password\n");
+    print("nickname: $nickname\n");
+    print("gender: $gender\n");
+    print("birthday: $birthday\n");
   }
 }

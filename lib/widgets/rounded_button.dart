@@ -25,7 +25,6 @@ class RoundedButton extends StatelessWidget {
         textStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
         padding: paddging,
         primary: kPrimaryColor,
-        // onSurface: ,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius),
         ),

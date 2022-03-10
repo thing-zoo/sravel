@@ -9,7 +9,7 @@ Widget buildSNS(
   Color btnColor,
 ) {
   return SizedBox(
-    width: 140.w,
+    width: 143.w,
     child: ElevatedButton.icon(
       onPressed: onPressed,
       icon: icon,

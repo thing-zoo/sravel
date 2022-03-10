@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sravel/models/user.dart';
 import 'package:sravel/utils/constants.dart';
 import 'package:sravel/utils/validate.dart';
 import 'package:sravel/widgets/rounded_button.dart';
@@ -16,20 +17,51 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var _emailText = '';
-  var _passwordText = '';
-  var _passwordCheckText = '';
-  var _nicknameText = '';
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _passwordCheckController = TextEditingController();
+
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+  final _passwordCheckFocus = FocusNode();
 
   bool _passwordObscure = true;
   bool _passwordCheckObscure = true;
 
-  final FocusNode _emailFocus = FocusNode();
-  final FocusNode _passwordFocus = FocusNode();
-  final FocusNode _passwordCheckFocus = FocusNode();
-  final FocusNode _nicknameFocus = FocusNode();
+  final _newUser = User();
 
-  final List<bool> _isChecked = [false, false, false, false];
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      _newUser.printProperties();
+      //다음 페이지
+    }
+  }
+
+  bool _isNotFormEmpty(
+      TextEditingController email, TextEditingController password) {
+    return email.value.text.isNotEmpty && password.value.text.isNotEmpty
+        ? true
+        : false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Fluttertoast.showToast(
+      msg: '스-하! 👋\n간단하게 몇 가지만 여쭤볼게요.',
+      fontSize: 18.sp,
+      gravity: ToastGravity.TOP,
+      backgroundColor: kPrimaryColor,
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,215 +72,120 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              
-              // buildInput(
-              //   '아이디(이메일)',
-              //   TextInputType.emailAddress,
-              //   'abc@sravel.com',
-              //   '• 비밀번호 찾기에서 활용되니, 꼭 정확하게 입력 해주세요!',
-              //   _emailFocus,
-              //   false,
-              //   (value) => CheckValidate().validateEmail(_emailFocus, value),
-              //   (text) => setState(() => _emailText = text),
-              //   RoundedButton(
-              //     onPressed: _emailText.isNotEmpty
-              //         ? () {
-              //             //중복 확인
-              //           }
-              //         : null,
-              //     child: Text(
-              //       '중복 확인',
-              //       style: TextStyle(
-              //         fontSize: 12.sp,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // buildInput(
-              //   '비밀번호',
-              //   TextInputType.visiblePassword,
-              //   '비밀번호를 입력하세요.',
-              //   '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.',
-              //   _passwordFocus,
-              //   _passwordObscure,
-              //   (value) =>
-              //       CheckValidate().validatePassword(_passwordFocus, value),
-              //   (text) => setState(() => _passwordText = text),
-              //   IconButton(
-              //     icon: Icon(_passwordObscure
-              //         ? Icons.visibility_off
-              //         : Icons.visibility),
-              //     onPressed: _passwordText.isNotEmpty
-              //         ? () {
-              //             setState(() {
-              //               _passwordObscure = !_passwordObscure;
-              //             });
-              //           }
-              //         : null,
-              //   ),
-              // ),
-              // buildInput(
-              //   '비밀번호 확인',
-              //   TextInputType.visiblePassword,
-              //   '비밀번호를 한 번 더 입력해 주세요.',
-              //   null,
-              //   _passwordCheckFocus,
-              //   _passwordCheckObscure,
-              //   (value) => CheckValidate().validatePasswordCheck(
-              //       _passwordCheckFocus, value, _passwordText),
-              //   (text) => setState(() => _passwordCheckText = text),
-              //   IconButton(
-              //     icon: Icon(_passwordCheckObscure
-              //         ? Icons.visibility_off
-              //         : Icons.visibility),
-              //     onPressed: _passwordCheckText.isNotEmpty
-              //         ? () {
-              //             setState(() {
-              //               _passwordCheckObscure = !_passwordCheckObscure;
-              //             });
-              //           }
-              //         : null,
-              //   ),
-              // ),
-              // buildInput(
-              //   '닉네임',
-              //   TextInputType.text,
-              //   '닉네임을 입력해 주세요.',
-              //   '• 특수문자 제외 2~20자 이내로 입력해주세요.',
-              //   _nicknameFocus,
-              //   false,
-              //   (value) =>
-              //       CheckValidate().validateNickname(_nicknameFocus, value),
-              //   (text) => setState(() => _nicknameText = text),
-              //   RoundedButton(
-              //     onPressed: _nicknameText.isNotEmpty
-              //         ? () {
-              //             //중복 확인
-              //           }
-              //         : null,
-              //     child: Text(
-              //       '중복 확인',
-              //       style: TextStyle(
-              //         fontSize: 12.sp,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              _buildPrivateAgreement(),
+              SizedBox(
+                width: double.infinity, //가로 꽉차게
+                child: Container(
+                  padding: EdgeInsets.all(16.w),
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Text(
+                    '스-하! 👋\n간단하게 몇 가지만 여쭤볼게요.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(color: Colors.white),
+                  ),
+                ),
+              ),
+              Column(
+                children: [
+                  InputForm(
+                    controller: _emailController,
+                    label: '아이디(이메일)',
+                    keyboardType: TextInputType.emailAddress,
+                    hint: 'abc@sravel.com',
+                    helper: '• 비밀번호 찾기에서 활용되니, 꼭 정확하게 입력 해주세요!',
+                    focusNode: _emailFocus,
+                    validator: (value) =>
+                        CheckValidate().validateEmail(_emailFocus, value),
+                    onSaved: (newValue) => _newUser.email = newValue,
+                    suffix: RoundedButton(
+                      onPressed: _emailController.value.text.isNotEmpty
+                          ? () {
+                              //중복 확인
+                            }
+                          : null,
+                      child: Text(
+                        '중복 확인',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  InputForm(
+                    controller: _passwordController,
+                    label: '비밀번호',
+                    keyboardType: TextInputType.visiblePassword,
+                    hint: '비밀번호를 입력하세요.',
+                    helper: '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.',
+                    focusNode: _passwordFocus,
+                    obscureText: _passwordObscure,
+                    validator: (value) =>
+                        CheckValidate().validatePassword(_passwordFocus, value),
+                    onSaved: (newValue) => _newUser.password = newValue,
+                    suffix: IconButton(
+                      icon: Icon(_passwordObscure
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      onPressed: _passwordController.value.text.isNotEmpty
+                          ? () {
+                              setState(() {
+                                _passwordObscure = !_passwordObscure;
+                              });
+                            }
+                          : null,
+                    ),
+                  ),
+                  InputForm(
+                    controller: _passwordCheckController,
+                    label: '비밀번호 확인',
+                    keyboardType: TextInputType.visiblePassword,
+                    hint: '비밀번호를 한 번 더 입력해 주세요.',
+                    focusNode: _passwordCheckFocus,
+                    obscureText: _passwordCheckObscure,
+                    validator: (value) => CheckValidate().validatePasswordCheck(
+                        _passwordCheckFocus,
+                        value,
+                        _passwordController.value.text),
+                    suffix: IconButton(
+                      icon: Icon(_passwordCheckObscure
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      onPressed: _passwordCheckController.value.text.isNotEmpty
+                          ? () {
+                              setState(() {
+                                _passwordCheckObscure = !_passwordCheckObscure;
+                              });
+                            }
+                          : null,
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
                 width: double.infinity,
                 child: RoundedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      if (_isChecked[1] && _isChecked[2]) {
-                        _submit();
-                      } else {
-                        Fluttertoast.showToast(
-                          msg: '필수 항목에 동의해주세요 🥺',
-                          gravity: ToastGravity.TOP,
-                          backgroundColor: Colors.grey,
-                        );
-                      }
-                    }
-                  },
-                  child: const Text('입력 완료!'),
-                  paddging: EdgeInsets.symmetric(vertical: 16.w),
+                  radius: 10,
+                  onPressed:
+                      _isNotFormEmpty(_emailController, _passwordController)
+                          ? () => _submit()
+                          : null,
+                  child: Text(
+                    '다 했어요!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(color: Colors.white, fontSize: 16.sp),
+                  ),
+                  paddging: EdgeInsets.symmetric(vertical: 11.w),
                 ),
               ),
             ],
           ),
         ));
-  }
-
-  Widget _buildPrivateAgreement() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            _buildCheckbox(0),
-            Text(
-              '모두 동의합니다.',
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w700,
-              ),
-            )
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 16.w),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  _buildCheckbox(1),
-                  Text(
-                    '이용약관 동의(필수)',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  _buildCheckbox(2),
-                  Text(
-                    '개인정보 취급방침 동의(필수)',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  _buildCheckbox(3),
-                  Text(
-                    '마케팅 정보 수신 동의',
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCheckbox(int index) {
-    return SizedBox(
-      width: 25.w,
-      height: 25.w,
-      child: Checkbox(
-        activeColor: kPrimaryColor,
-        value: _isChecked[index],
-        shape: const CircleBorder(),
-        onChanged: (bool? value) {
-          setState(() {
-            if (index == 0) {
-              //모두 동의
-              _isChecked.setAll(0, [value!, value, value, value]);
-            } else {
-              _isChecked[index] = value!;
-            }
-          });
-        },
-      ),
-    );
-  }
-
-  void _submit() {
-    _formKey.currentState!.save();
-    //백으로 데이터 전송!
-    Fluttertoast.showToast(
-      msg: '가입이 성공적으로 완료되었습니다! 🥳',
-      gravity: ToastGravity.TOP,
-      backgroundColor: kPrimaryColor,
-    );
   }
 }

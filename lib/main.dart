@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sravel/screens/signupin_screen.dart';
 import 'package:sravel/utils/constants.dart';
 import 'package:sravel/screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized(); //비동기 함수 실행 시 필요
+
+  //가로 모드 허용하지 않음.
+  SystemChrome.setPreferredOrientations(// --- (3)
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,17 +29,6 @@ class MyApp extends StatelessWidget {
           indicatorColor: kPrimaryColor,
           focusColor: kPrimaryColor,
           highlightColor: kPrimaryColor,
-          inputDecorationTheme: InputDecorationTheme(
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryColor, width: 2.w),
-            ),
-            contentPadding: EdgeInsets.all(2.w),
-            helperStyle: TextStyle(
-              // color: kPrimaryColor,
-              fontSize: 11.sp,
-            ),
-            errorStyle: TextStyle(fontSize: 11.sp, color: Colors.red),
-          ),
           fontFamily: 'Noto_Sans_KR',
           textTheme: TextTheme(
             titleLarge: TextStyle(

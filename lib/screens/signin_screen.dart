@@ -44,7 +44,16 @@ class _SignInPageState extends State<SignInPage> {
 
   bool _isNotFormEmpty(
       TextEditingController email, TextEditingController password) {
-    return email.text.isNotEmpty && password.text.isNotEmpty ? true : false;
+    return email.value.text.isNotEmpty && password.value.text.isNotEmpty
+        ? true
+        : false;
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,43 +67,37 @@ class _SignInPageState extends State<SignInPage> {
             children: [
               Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 25.w),
-                    child: InputForm(
-                      controller: _emailController,
-                      label: '아이디(이메일)',
-                      keyboardType: TextInputType.emailAddress,
-                      hint: 'abc@sravel.com',
-                      focusNode: _emailFocus,
-                      validator: (value) =>
-                          CheckValidate().validateEmail(_emailFocus, value),
-                      onSaved: (newValue) => _newUser.email = newValue,
-                    ),
+                  InputForm(
+                    controller: _emailController,
+                    label: '아이디(이메일)',
+                    keyboardType: TextInputType.emailAddress,
+                    hint: 'abc@sravel.com',
+                    focusNode: _emailFocus,
+                    validator: (value) =>
+                        CheckValidate().validateEmail(_emailFocus, value),
+                    onSaved: (newValue) => _newUser.email = newValue,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 25.w),
-                    child: InputForm(
-                      controller: _passwordController,
-                      label: '비밀번호',
-                      keyboardType: TextInputType.visiblePassword,
-                      hint: '비밀번호를 입력하세요.',
-                      focusNode: _passwordFocus,
-                      obscureText: _passwordObscure,
-                      validator: (value) => CheckValidate()
-                          .validatePassword(_passwordFocus, value),
-                      onSaved: (newValue) => _newUser.password = newValue,
-                      suffix: IconButton(
-                        icon: Icon(_passwordObscure
-                            ? Icons.visibility_off
-                            : Icons.visibility),
-                        onPressed: _passwordController.text.isNotEmpty
-                            ? () {
-                                setState(() {
-                                  _passwordObscure = !_passwordObscure;
-                                });
-                              }
-                            : null,
-                      ),
+                  InputForm(
+                    controller: _passwordController,
+                    label: '비밀번호',
+                    keyboardType: TextInputType.visiblePassword,
+                    hint: '비밀번호를 입력하세요.',
+                    focusNode: _passwordFocus,
+                    obscureText: _passwordObscure,
+                    validator: (value) =>
+                        CheckValidate().validatePassword(_passwordFocus, value),
+                    onSaved: (newValue) => _newUser.password = newValue,
+                    suffix: IconButton(
+                      icon: Icon(_passwordObscure
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      onPressed: _passwordController.value.text.isNotEmpty
+                          ? () {
+                              setState(() {
+                                _passwordObscure = !_passwordObscure;
+                              });
+                            }
+                          : null,
                     ),
                   ),
                   SizedBox(
@@ -118,10 +121,7 @@ class _SignInPageState extends State<SignInPage> {
                     padding: EdgeInsets.only(bottom: 25.w),
                     child: Text(
                       '더 간편하게👀',
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   Row(
@@ -129,14 +129,14 @@ class _SignInPageState extends State<SignInPage> {
                     children: [
                       buildSNS(
                         () {},
-                        Image.asset('images/kakao.png'),
+                        Image.asset('assets/images/kakao.png'),
                         '카카오로그인',
                         Colors.black,
                         const Color(0xFFF7E600),
                       ),
                       buildSNS(
                         () {},
-                        Image.asset('images/google.png'),
+                        Image.asset('assets/images/google.png'),
                         'Google로그인',
                         Colors.white,
                         Colors.blue,
@@ -148,7 +148,7 @@ class _SignInPageState extends State<SignInPage> {
                     children: [
                       buildSNS(
                         () {},
-                        Image.asset('images/naver.png'),
+                        Image.asset('assets/images/naver.png'),
                         '네이버로그인',
                         Colors.white,
                         const Color(0xFF2DB400),

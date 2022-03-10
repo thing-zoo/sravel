@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sravel/screens/signin_screen.dart';
-import 'package:sravel/screens/signup_screen.dart';
+import 'package:sravel/screens/signup_screen2.dart';
 import 'package:sravel/utils/constants.dart';
 
 class SignUpInPage extends StatefulWidget {
@@ -34,17 +34,13 @@ class _SignUpInPageState extends State<SignUpInPage>
         elevation: 0,
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: kPrimaryColor, //밑줄
           indicatorSize: TabBarIndicatorSize.label,
           labelColor: kPrimaryColor, //글자
-          labelStyle: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 18.sp,
-          ),
+          labelStyle: Theme.of(context).textTheme.headlineMedium,
           unselectedLabelColor: Colors.black26,
           tabs: const [
             Tab(
-              text: '   회원가입   ', //indicator
+              text: '   회원가입   ',
             ),
             Tab(
               text: '   로그인   ',
@@ -54,9 +50,9 @@ class _SignUpInPageState extends State<SignUpInPage>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [
-          SignUpPage(),
-          SignInPage(),
+        children: [
+          SignUpPage2(),
+          const SignInPage(),
         ],
       ),
     );
