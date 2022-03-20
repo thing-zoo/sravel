@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:sravel/screens/signin_screen.dart';
+import 'package:sravel/screens/signup_screen.dart';
 import 'package:sravel/screens/signupin_screen.dart';
 import 'package:sravel/utils/constants.dart';
 import 'package:sravel/screens/home_screen.dart';
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: () => MaterialApp(
+      builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -64,6 +67,11 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: const SignUpInPage(),
+        getPages: [
+          GetPage(name: '/signin', page: () => const SignInPage()),
+          GetPage(name: '/signup', page: () => const SignUpPage()),
+          GetPage(name: '/signupin', page: () => const SignUpInPage()),
+        ],
         // home: const MainPage(title: 'SRAVEL'),
       ),
     );
