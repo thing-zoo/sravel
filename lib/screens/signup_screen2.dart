@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:sravel/models/user.dart';
 import 'package:sravel/utils/constants.dart';
 import 'package:sravel/utils/validate.dart';
@@ -38,13 +38,9 @@ class _SignUpPage2State extends State<SignUpPage2> {
         widget.dropdownDatePicker.getMonth, widget.dropdownDatePicker.getDay);
     _newUser.printProperties();
     //백으로 데이터 전송!
-    Fluttertoast.showToast(
-      msg: '가입이 성공적으로 완료되었습니다! 🥳',
-      gravity: ToastGravity.TOP,
-      backgroundColor: kPrimaryColor,
-    );
+    Get.snackbar('회원가입', '가입이 성공적으로 완료되었습니다! 🥳');
   }
-  
+
   @override
   void dispose() {
     _nicknameController.dispose();
@@ -131,11 +127,10 @@ class _SignUpPage2State extends State<SignUpPage2> {
                       if (_isChecked[1] && _isChecked[2]) {
                         _submit();
                       } else {
-                        Fluttertoast.showToast(
-                          msg: '필수 항목에 동의해주세요 🥺',
-                          gravity: ToastGravity.TOP,
-                          backgroundColor: Colors.grey,
-                        );
+                        Get.defaultDialog(
+                            title: '회원가입',
+                            middleText: '필수 항목에 동의해주세요 🥺',
+                            backgroundColor: Colors.white70);
                       }
                     }
                   },

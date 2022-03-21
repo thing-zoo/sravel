@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sravel/screens/signin_screen.dart';
-import 'package:sravel/screens/signup_screen2.dart';
+import 'package:sravel/screens/signup_screen.dart';
 import 'package:sravel/utils/constants.dart';
 
 class SignUpInPage extends StatefulWidget {
@@ -50,9 +50,9 @@ class _SignUpInPageState extends State<SignUpInPage>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          SignUpPage2(),
-          const SignInPage(),
+        children: const [
+          SignUpPage(),
+          SignInPage(),
         ],
       ),
     );

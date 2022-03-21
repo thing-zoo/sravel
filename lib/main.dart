@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:sravel/screens/signin_screen.dart';
-import 'package:sravel/screens/signup_screen.dart';
 import 'package:sravel/screens/signupin_screen.dart';
 import 'package:sravel/utils/constants.dart';
 import 'package:sravel/screens/home_screen.dart';
@@ -34,18 +32,6 @@ class MyApp extends StatelessWidget {
           highlightColor: kPrimaryColor,
           fontFamily: 'Noto_Sans_KR',
           textTheme: TextTheme(
-            titleLarge: TextStyle(
-              letterSpacing: -2.84,
-              fontWeight: FontWeight.w900,
-              fontSize: 50.sp,
-              color: Colors.black,
-            ),
-            titleSmall: TextStyle(
-              letterSpacing: -2.84,
-              fontWeight: FontWeight.w900,
-              fontSize: 25.sp,
-              color: Colors.black,
-            ),
             headlineLarge: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 22.sp,
@@ -66,13 +52,13 @@ class MyApp extends StatelessWidget {
             bodySmall: TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w500),
           ),
         ),
-        home: const SignUpInPage(),
+        initialRoute: '/signupin',
         getPages: [
-          GetPage(name: '/signin', page: () => const SignInPage()),
-          GetPage(name: '/signup', page: () => const SignUpPage()),
+          GetPage(name: '/', page: () => const MainPage(title: 'SRAVEL')),
+          // GetPage(name: '/signin', page: () => const SignInPage()),
+          // GetPage(name: '/signup', page: () => const SignUpPage()),
           GetPage(name: '/signupin', page: () => const SignUpInPage()),
         ],
-        // home: const MainPage(title: 'SRAVEL'),
       ),
     );
   }
@@ -113,7 +99,12 @@ class _MainPageState extends State<MainPage> {
         elevation: 0,
         title: Text(
           widget.title,
-          style: Theme.of(context).textTheme.titleSmall,
+          style: TextStyle(
+            letterSpacing: -2.84,
+            fontWeight: FontWeight.w900,
+            fontSize: 25.sp,
+            color: Colors.black,
+          ),
         ),
         centerTitle: false,
         actions: [

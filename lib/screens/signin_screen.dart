@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:sravel/models/user.dart';
-import 'package:sravel/utils/constants.dart';
 import 'package:sravel/widgets/rounded_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sravel/widgets/sns_button.dart';
-
 import '../utils/validate.dart';
 import '../widgets/input_field.dart';
 
@@ -34,11 +32,7 @@ class _SignInPageState extends State<SignInPage> {
       _formKey.currentState!.save();
       _newUser.printProperties();
       //백으로 데이터 전송!
-      Fluttertoast.showToast(
-        msg: '로그인 성공 ~ 🥳',
-        gravity: ToastGravity.TOP,
-        backgroundColor: kPrimaryColor,
-      );
+      Get.snackbar('로그인', '로그인 성공 ~ 🥳');
     }
   }
 
