@@ -30,7 +30,9 @@ class User {
         password: json["password"],
         nickname: json["nickname"],
         gender: json["gender"],
-        birthday: DateTime.parse(json["birthday"]),
+        birthday: (json["birthday"] != null)
+            ? DateTime.parse(json["birthday"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -44,10 +46,10 @@ class User {
 
   // print properties for debug
   void printProperties() {
-    // print("email: $email\n");
-    // print("password: $password\n");
-    print("nickname: $nickname\n");
-    print("gender: $gender\n");
-    print("birthday: $birthday\n");
+    print("email: $email\n");
+    print("password: $password\n");
+    // print("nickname: $nickname\n");
+    // print("gender: $gender\n");
+    // print("birthday: $birthday\n");
   }
 }

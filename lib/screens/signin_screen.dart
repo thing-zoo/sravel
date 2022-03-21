@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sravel/models/user.dart';
+import 'package:sravel/service/api.dart';
 import 'package:sravel/widgets/rounded_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sravel/widgets/sns_button.dart';
@@ -26,13 +27,21 @@ class _SignInPageState extends State<SignInPage> {
   bool _passwordObscure = true;
 
   final _newUser = User();
+  late ApiResponse _apiResponse;
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _newUser.printProperties();
       //백으로 데이터 전송!
-      Get.snackbar('로그인', '로그인 성공 ~ 🥳');
+      _apiResponse =
+          await authenticateUser(_newUser.email!, _newUser.password!);
+      if (_apiResponse.ApiError == null) {
+        Get.snackbar('로그인', '로그인 성공 ~ 🥳');
+        //_saveAndRedirectToHome();
+      } else {
+        Get.snackbar('오류', (_apiResponse.ApiError as ApiError).error);
+      }
     }
   }
 

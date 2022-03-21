@@ -16,19 +16,19 @@ class CheckValidate {
   }
 
   String? validatePassword(FocusNode focusNode, String? value) {
-    String pattern =
-        r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{8,15}$';
-    RegExp regExp = RegExp(pattern);
-    if (value == null || value.isEmpty) {
-      focusNode.requestFocus();
-      // return '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.';
-    } else if (value.length < 8) {
-      return '• 아직 8자 미만이에요.';
-    } else if (value.length > 15) {
-      return '• 15자를 초과했어요.';
-    } else if (!regExp.hasMatch(value)) {
-      return '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.';
-    }
+    // String pattern =
+    //     r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?~^<>,.&+=])[A-Za-z\d$@$!%*#?~^<>,.&+=]{8,15}$';
+    // RegExp regExp = RegExp(pattern);
+    // if (value == null || value.isEmpty) {
+    //   focusNode.requestFocus();
+    //   // return '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.';
+    // } else if (value.length < 8) {
+    //   return '• 아직 8자 미만이에요.';
+    // } else if (value.length > 15) {
+    //   return '• 15자를 초과했어요.';
+    // } else if (!regExp.hasMatch(value)) {
+    //   return '• 특수문자, 대소문자, 숫자 포함 8~15자 이내로 입력해주세요.';
+    // }
     return null;
   }
 
